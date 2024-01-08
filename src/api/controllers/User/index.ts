@@ -5,11 +5,6 @@ const getUsers = (req: Request, res: Response) => {
 }
 
 
-
-
-
-
-
 export default {
     getUsers
 }
