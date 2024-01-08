@@ -1,29 +1,21 @@
-import express, { Express } from "express";
-import bodyParser from "body-parser";
-import cookieParser from "cookie-parser";
-import helmet from "helmet";
-import compression from "compression";
+import app from "./config/setup-server";
+import { Request, Response } from "express";
+import { PORT } from "./config/constants";
 
+//Routes
+import userRouter from "./api/routes/User";
 
-
-const app: Express = express()
-const PORT = 8000
-
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(compression())
-app.use(helmet())
-app.use(cookieParser())
-
-
-app.use(express.urlencoded({ extended: true }))
-
-
-app.get("/api", (req, res) => {
+// First Route
+app.get("/api", (req: Request, res: Response) => {
     return res.send("Hello Typescript")
 })
 
+// User Routes
+app.use("/api/users", userRouter)
 
+
+
+// Listen Express Server
 app.listen(PORT, () => {
     console.log(`Server listening on port http://localhost:${PORT}/api`)
 })
