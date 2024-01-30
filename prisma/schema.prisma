@@ -10,4 +10,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  ADMIN
+  MODERATOR
+  USER
+}
 
+model User {
+  id       String   @id @default(uuid())
+  username String   @unique
+  email    String   @unique
+  password String
+  emailVerified Boolean @default(false)
+  role     UserRole @default(USER)
+  profile  Profile?
+}
+
+model Profile {
+  id         String  @id @default(uuid())
+  userId     String  @unique
+  user       User    @relation(fields: [userId], references: [id])
+  full_name  String?
+  bio        String?
+  age        Int?
+  avatar_url String?
+}
