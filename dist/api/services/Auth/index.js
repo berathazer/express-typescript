@@ -3,11 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Auth_1 = __importDefault(require("@/api/repositories/Auth"));
+const User_1 = __importDefault(require("@/api/repositories/User"));
 const auth_1 = require("@/api/utils/auth");
 const loginHandler = async (email, password) => {
     try {
-        const user = await Auth_1.default.findUserByEmail(email);
+        const user = await User_1.default.findUserByEmail(email);
         if (!user) {
             throw new Error("User not found");
         }
@@ -24,12 +24,12 @@ const loginHandler = async (email, password) => {
 };
 const registerHandler = async (username, email, password) => {
     try {
-        const user = await Auth_1.default.findUserByEmailOrUsername(email, username);
+        const user = await User_1.default.findUserByEmailOrUsername(email, username);
         if (user) {
             throw new Error("User already exists");
         }
         const hashedPassword = await (0, auth_1.encryptPassword)(password);
-        return await Auth_1.default.createUser(username, email, hashedPassword);
+        return await User_1.default.createUser(username, email, hashedPassword);
     }
     catch (error) {
         throw error;

@@ -23,5 +23,5 @@ export const generateJwtToken = (user: User): string => {
         username: user.username
     }
 
-    return jwt.sign(tokenValue, process.env.JWT_SECRET_KEY as string, { expiresIn: "1m" })
+    return jwt.sign(tokenValue, process.env.JWT_SECRET_KEY as string, { expiresIn: "30m" })
 }

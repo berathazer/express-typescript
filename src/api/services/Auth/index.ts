@@ -1,10 +1,10 @@
-import authRepository from "@/api/repositories/Auth"
+import userRepository from "@/api/repositories/User"
 import { comparePassword, encryptPassword, generateJwtToken } from "@/api/utils/auth";
 
 
 const loginHandler = async (email: string, password: string) => {
     try {
-        const user = await authRepository.findUserByEmail(email);
+        const user = await userRepository.findUserByEmail(email);
 
         if (!user) {
             throw new Error("User not found");
@@ -27,7 +27,7 @@ const loginHandler = async (email: string, password: string) => {
 const registerHandler = async (username: string, email: string, password: string) => {
     try {
 
-        const user = await authRepository.findUserByEmailOrUsername(email, username);
+        const user = await userRepository.findUserByEmailOrUsername(email, username);
 
         if (user) {
             throw new Error("User already exists");
@@ -35,7 +35,7 @@ const registerHandler = async (username: string, email: string, password: string
 
         const hashedPassword = await encryptPassword(password);
 
-        return await authRepository.createUser(username, email, hashedPassword)
+        return await userRepository.createUser(username, email, hashedPassword)
     } catch (error) {
         throw error
     }

@@ -24,7 +24,7 @@ const generateJwtToken = (user) => {
         role: user.role,
         username: user.username
     };
-    return jsonwebtoken_1.default.sign(tokenValue, process.env.JWT_SECRET_KEY, { expiresIn: "1m" });
+    return jsonwebtoken_1.default.sign(tokenValue, process.env.JWT_SECRET_KEY, { expiresIn: "30m" });
 };
 exports.generateJwtToken = generateJwtToken;
 //# sourceMappingURL=auth.js.map
